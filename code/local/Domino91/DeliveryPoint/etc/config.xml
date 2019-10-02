@@ -52,6 +52,17 @@
             </deliverypoint_read>
         </resources>
     </global>
+    <default>
+        <carriers>
+            <domino91_deliverypoint>
+                <active>1</active>
+                <model>deliverypoint/carrier</model>
+                <title>Delivery Point Carrier</title>
+                <price>1</price>
+                <sort_order>10</sort_order>
+            </domino91_deliverypoint>
+        </carriers>
+    </default>
     <admin>
         <routers>
             <adminhtml>
