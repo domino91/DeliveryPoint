@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Domino91_DeliveryPoint>
+      <active>true</active>
+      <codePool>local</codePool>
+    </Domino91_DeliveryPoint>
+  </modules>
+</config>

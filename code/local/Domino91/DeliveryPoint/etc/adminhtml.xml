@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <deliverypoint module="deliverypoint">
+            <title>Delivery Point</title>
+            <sort_order>100</sort_order>
+            <children>
+                <dpoint module="deliverypoint">
+                    <title>Manage Delivery of Points</title>
+                    <sort_order>0</sort_order>
+                    <action>*/dpoint</action>
+                </dpoint>
+            </children>
+        </deliverypoint>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <deliverypoint translate="title" module="deliverypoint">
+                        <title>Delivery Point</title>
+                        <sort_order>1000</sort_order>
+                        <children>
+                            <deliverypointbackend translate="title">
+                                <title>Manage Delivery of Points</title>
+                            </deliverypointbackend>
+                        </children>
+                    </deliverypoint>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

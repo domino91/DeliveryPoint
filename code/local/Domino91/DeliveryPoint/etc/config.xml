@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Domino91_DeliveryPoint>
+            <version>1.0.1</version>
+        </Domino91_DeliveryPoint>
+    </modules>
+    <global>
+        <helpers>
+            <deliverypoint>
+                <class>Domino91_DeliveryPoint_Helper</class>
+            </deliverypoint>
+        </helpers>
+        <blocks>
+            <deliverypoint>
+                <class>Domino91_DeliveryPoint_Block</class>
+            </deliverypoint>
+        </blocks>
+        <models>
+            <deliverypoint>
+                <class>Domino91_DeliveryPoint_Model</class>
+                <resourceModel>deliverypoint_resource</resourceModel>
+            </deliverypoint>
+
+            <!-- Resource model to create a database table -->
+            <deliverypoint_resource>
+                <class>Domino91_DeliveryPoint_Model_Resource</class>
+                <entities>
+                    <dpoint>
+                        <table>deliverypoint_dpoint</table>
+                    </dpoint>
+                </entities>
+            </deliverypoint_resource>
+        </models>
+        <resources>
+            <deliverypoint_setup>
+                <setup>
+                    <module>Domino91_DeliveryPoint</module>
+                </setup>
+            </deliverypoint_setup>
+
+            <deliverypoint_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </deliverypoint_write>
+
+            <deliverypoint_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </deliverypoint_read>
+        </resources>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <domino91_deliverypoint before="Mage_Adminhtml">Domino91_DeliveryPoint_Adminhtml</domino91_deliverypoint>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <deliverypoint>
+                    <file>deliverypoint.xml</file>
+                </deliverypoint>
+            </updates>
+        </layout>
+    </adminhtml>
+</config> 

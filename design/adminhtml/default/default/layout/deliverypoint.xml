@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_dpoint_index>
+        <reference name="content">
+            <block type="deliverypoint/adminhtml_dpoint" name="dpoint"/>
+        </reference>
+    </adminhtml_dpoint_index>
+</layout>
