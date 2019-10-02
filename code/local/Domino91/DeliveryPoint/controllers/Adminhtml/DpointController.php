@@ -70,34 +70,27 @@ class Domino91_DeliveryPoint_Adminhtml_DpointController extends Mage_Adminhtml_C
 
     public function saveAction()
     {
-        if ($this->getRequest()->getPost()) {
+        if ($postData = $this->getRequest()->getPost()) {
+            $model = Mage::getSingleton('deliverypoint/dpoint');
+            $model->setData($postData);
+
             try {
-                $postData = $this->getRequest()->getPost();
-                $deliveryModel = Mage::getModel('deliverypoint/dpoint');
+                $model->save();
 
-                if ($this->getRequest()->getParam('id') <= 0) {
-                    $deliveryModel->setCreatedTime(Mage::getSingleton('core/date')->gmtDate());
-                    $deliveryModel
-                        ->addData($postData)
-                        ->setUpdateTime(Mage::getSingleton('core/date')->gmtDate())
-                        ->setId($this->getRequest()->getParam('id'))
-                        ->save();
+                Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The Delivery Point has been saved.'));
+                $this->_redirect('*/*/');
 
-                    Mage::getSingleton('adminhtml/session')->addSuccess('successfully saved');
-                    Mage::getSingleton('adminhtml/session')->setDeliveryPointData(false);
-                    $this->_redirect('*/*/');
-                    return;
-                }
-
-            } catch (Exception $e) {
-
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                Mage::getSingleton('adminhtml/session')->setDeliveryPointData($this->getRequest()->getPost());
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
                 return;
+            } catch (Mage_Core_Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError(
+                    $this->__('An error occurred while saving this Delivery Point.')
+                );
             }
 
-            $this->_redirect('*/*/');
+            Mage::getSingleton('adminhtml/session')->setDeliveryPoint($postData);
+            $this->_redirectReferer();
         }
     }
 
@@ -117,10 +110,35 @@ class Domino91_DeliveryPoint_Adminhtml_DpointController extends Mage_Adminhtml_C
         $this->_redirect('*/*/');
     }
 
+    public function messageAction()
+    {
+        $data = Mage::getModel('deliverypoint/dpoint')->load($this->getRequest()->getParam('id'));
+        echo $data->getContent();
+    }
+
+    public function massDeleteAction()
+    {
+        $deliveryIds = $this->getRequest()->getParam('dpoint');
+
+        if (!is_array($deliveryIds)) {
+            Mage::getSingleton('adminhtml/session')->addError($this->__('Please select a Delivery Point'));
+        } else {
+            try {
+                $model = Mage::getSingleton('deliverypoint/dpoint');
+                foreach ($deliveryIds as $deliveryId) {
+                    $model->load($deliveryId)->delete();
+                }
+                Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Total of %d record(s) were deleted.',
+                    count($deliveryIds)));
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            }
+        }
+        $this->_redirect('*/*/');
+    }
+
     protected function _isAllowed()
     {
         return Mage::getSingleton('admin/session')->isAllowed('deliverypoint/dpoint');
     }
-
-
 }

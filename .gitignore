@@ -1,0 +1,10 @@
+.htaccess
+Mage.php
+bootstrap.php
+code/community/
+code/core/
+locale/
+design/
+etc/
+!design/adminhtml/default/default/layout/deliverypoint.xml
+!etc/modules/Domino91_DeliveryPoint.xml
